@@ -47,6 +47,7 @@ class GeopickerController extends ActionController {
         $elevationField = $p['elevField'];
         $elevationUnit = $p['elevUnit'];
         if ($elevationUnit !== 'feet') $elevationUnit = 'meters';
+	$apikey = $p['apikey'];
 
         $data = array();
         $data['latField'] = $latField;
@@ -57,6 +58,7 @@ class GeopickerController extends ActionController {
         $data['dataElevationField'] = "data[$table][$uid][$elevationField]";
         $data['table'] = $table;
         $data['elevationUnit'] = $elevationUnit;
+	$data['apikey'] = $apikey;
 
         $funcs = "
             window.opener.typo3form.fieldGet('data[$table][2][lat]', 'trim', '', 1, '');

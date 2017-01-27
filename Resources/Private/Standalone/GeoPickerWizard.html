@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="/typo3conf/ext/geopicker/Resources/Public/geopicker_be.css"/>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={data.apikey}"></script>
     <script>
         var LAT_FIELD = '{data.latField}',
                 LON_FIELD = '{data.lonField}',
@@ -21,15 +21,17 @@
                 elevationEditable = true;
 
         function checkReference() {
+		console.log(window.opener.document.editform);
             if (window.opener && window.opener.document
                     && window.opener.document.editform
-                    && window.opener.document.editform[DATA_LAT_FIELD + '_hr']
-                    && window.opener.document.editform[DATA_LON_FIELD + '_hr']) {
+                    && window.opener.document.editform.querySelector('[data-formengine-input-name="' + DATA_LAT_FIELD + '"]')
+                    && window.opener.document.editform.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]')) {
                 return true;
             } else {
                 alert('Missing fields configuration, check your TCA');
                 close();
             }
+	    return true;
         }
 
         function isNumeric(n) {
@@ -37,8 +39,8 @@
         }
 
         function getCoordsFromMainForm() {
-            startLat = window.opener.document.getElementsByName(DATA_LAT_FIELD + '_hr')[0].value;
-            startLon = window.opener.document.getElementsByName(DATA_LON_FIELD + '_hr')[0].value;
+            startLat = window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LAT_FIELD + '"]').value;
+            startLon = window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]').value;
             document.getElementById("lat").value = startLat;
             document.getElementById("lon").value = startLon;
         }
@@ -52,17 +54,17 @@
             if (!isNumeric(newLat)) newLat = '';
             if (!isNumeric(newLon)) newLon = '';
 
-            window.opener.document.getElementsByName(DATA_LAT_FIELD + '_hr')[0].value = newLat;
-            window.opener.document.getElementsByName(DATA_LON_FIELD + '_hr')[0].value = newLon;
+            window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LAT_FIELD + '"]').value = newLat;
+            window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]').value = newLon;
 
-            window.opener.typo3form.fieldGet(DATA_LAT_FIELD, 'trim', '', 1, '');
-            window.opener.typo3form.fieldGet(DATA_LON_FIELD, 'trim', '', 1, '');
+            //window.opener.typo3form.fieldGet(DATA_LAT_FIELD, 'trim', '', 1, '');
+            //window.opener.typo3form.fieldGet(DATA_LON_FIELD, 'trim', '', 1, '');
             window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, LAT_FIELD, DATA_LAT_FIELD);
             window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, LON_FIELD, DATA_LON_FIELD);
 
             if (elevationEditable && isNumeric(newElevation)) {
                 window.opener.document.getElementsByName(DATA_ELEVATION_FIELD + '_hr')[0].value = newElevation;
-                window.opener.typo3form.fieldGet(DATA_ELEVATION_FIELD, 'trim', '', 1, '');
+                //window.opener.typo3form.fieldGet(DATA_ELEVATION_FIELD, 'trim', '', 1, '');
                 window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, ELEVATION_FIELD, DATA_ELEVATION_FIELD);
             }
             close();
@@ -97,7 +99,7 @@
     </label>
 
     <br/><br/>
-    <a href="javascript:updateFields()"><f:translate key="LLL:EXT:geopicker/Resources/Private/Language/locallang_db.xlf:wizard.update"/></a>
+    <button onclick="updateFields()" class="btn btn-default"><f:translate key="LLL:EXT:geopicker/Resources/Private/Language/locallang_db.xlf:wizard.update"/></button>
 
 </div>
 
