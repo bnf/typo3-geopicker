@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2015-01-26T14:15:05Z" product-name="geopicker">
+        <header/>
+        <body>
+            <trans-unit id="title.coordinatesDMS">
+                <source>Degrees, minutes, seconds (DD° MM′ SS″)</source>
+            </trans-unit>
+
+            <trans-unit id="title.coordinatesDD">
+                <source>Decimal coordinates (DD.DDDDDD)</source>
+            </trans-unit>
+
+            <trans-unit id="title.coordinatesDM">
+                <source>Degrees, minutes (DD° MM.mmm′)</source>
+            </trans-unit>
+
+            <trans-unit id="elevationMeters">
+                <source>%s mASL</source>
+            </trans-unit>
+
+            <trans-unit id="elevationFeet">
+                <source>%s feet</source>
+            </trans-unit>
+
+            <trans-unit id="elevationMetersShort">
+                <source>%sm</source>
+            </trans-unit>
+
+            <trans-unit id="elevationFeetShort">
+                <source>%sf</source>
+            </trans-unit>
+
+            <trans-unit id="validationError">
+                <source>Coordinates invalid!</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

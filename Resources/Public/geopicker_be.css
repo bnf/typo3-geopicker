@@ -1,0 +1,50 @@
+
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background: rgb(235, 235, 235);
+}
+
+input, textarea, button {
+    background-color: #fefefe;
+    border: 1px solid #7c7c7c;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0 0.5em 0.5em 0;
+    padding: 3px 6px;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+.leftPane {
+    width: auto;
+    margin-right: 260px;
+}
+
+.rightPane {
+    float: right;
+    width: 250px;
+    padding-top: 12px;
+}
+
+.wideInput {
+    width: 240px;
+}
+
+.readonly {
+    background: lightgrey;
+}
+
+#map-canvas {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #808080;
+}
