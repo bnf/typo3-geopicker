@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-01-27T14:15:05Z" product-name="geopicker">
+        <header/>
+        <body>
+
+
+
+            <trans-unit id="coordinatesHeader">
+                <source>Coordinates in decimal points: `DDD.DDDDDD`</source>
+                <target>Koordinaten in Dezimalschreibweise: `DDD.DDDDDD`</target>
+            </trans-unit>
+
+            <trans-unit id="latitude">
+                <source>Latitude (-90° – 90°)</source>
+		<target>Breitengrad (-90° – 90°)</target>
+            </trans-unit>
+
+            <trans-unit id="longitude">
+                <source>Longitude (-180° – 180°)</source>
+		<target>Längengrad (-180° – 180°)</target>
+            </trans-unit>
+
+            <trans-unit id="elevation">
+                <source>Elevation</source>
+            </trans-unit>
+
+            <trans-unit id="wizard.search">
+                <source>Search</source>
+		<target>Suche</target>
+            </trans-unit>
+            <trans-unit id="wizard.coordinates">
+                <source>Coordinates</source>
+		<target>Koordinaten</target>
+            </trans-unit>
+
+            <trans-unit id="wizard.elevation">
+                <source>Elevation</source>
+            </trans-unit>
+
+            <trans-unit id="wizard.getElevation">
+                <source>Get elevation for point</source>
+            </trans-unit>
+
+            <trans-unit id="wizard.update">
+                <source>Update coordinates</source>
+		<target>Koordinaten aktualisieren</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
