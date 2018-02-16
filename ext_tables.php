@@ -1,9 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'GeoPicker');
+defined('TYPO3_MODE') or die();
 
 // Register GeoPicker wizard
 if (TYPO3_MODE === 'BE'){
