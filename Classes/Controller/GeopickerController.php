@@ -37,7 +37,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class GeopickerController extends ActionController {
 
-    public function geoPickerWizard() {
+    public function mainAction() {
         $p = GeneralUtility::_GET('P');
 
         $latField = $p['latField'];

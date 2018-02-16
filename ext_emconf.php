@@ -7,7 +7,7 @@ It will help you to manage your latitude, longitude and elevation fields via pop
 Also there are ViewHelpers, format converters, TCA validations which will help you to point the point.
 For more details check included manual',
     'category' => 'module',
-    'version' => '1.0.0',
+    'version' => '1.1.0',
     'state' => 'stable',
     'uploadfolder' => false,
     'createDirs' => '',
@@ -19,7 +19,7 @@ For more details check included manual',
         array(
             'depends' =>
                 array(
-                    'typo3' => '7.6.0-7.6.99',
+                    'typo3' => '7.6.0-8.7.99',
                 ),
             'conflicts' =>
                 array(),

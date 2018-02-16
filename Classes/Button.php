@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcus
- * Date: 16.01.2015
- * Time: 18:51
- */
-
 namespace BIESIOR\Geopicker;
-
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -72,6 +64,4 @@ class Button {
     public function header($PA, $fObj) {
         return $GLOBALS['LANG']->sL($PA['parameters']['description']);
     }
-
-
 }
