@@ -27,18 +27,28 @@
 
 namespace BIESIOR\Geopicker\Controller;
 
-use TYPO3\CMS\Core\Utility\DebugUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
- * CommentController
+ * GeopickerController
  */
-class GeopickerController extends ActionController {
+class GeopickerController {
 
-    public function mainAction() {
-        $p = GeneralUtility::_GET('P');
+    /**
+     * @param ServerRequestInterface $request the current request
+     * @return ResponseInterface the response with the content
+     */
+    public function mainAction(ServerRequestInterface $request)//: ResponseInterface
+    {
+        $queryParams = $request->getQueryParams();
+        if (!isset($queryParams['P']) || empty($queryParams['P'])) {
+            return new Response('php://temp', 400);
+        }
+        $p = $queryParams['P'];
 
         $latField = $p['latField'];
         $lonField = $p['lonField'];
@@ -47,9 +57,9 @@ class GeopickerController extends ActionController {
         $elevationField = $p['elevField'];
         $elevationUnit = $p['elevUnit'];
         if ($elevationUnit !== 'feet') $elevationUnit = 'meters';
-	$apikey = $p['apikey'];
+        $apikey = $p['apikey'];
 
-        $data = array();
+        $data = [];
         $data['latField'] = $latField;
         $data['lonField'] = $lonField;
         $data['elevationField'] = $elevationField;
@@ -58,7 +68,7 @@ class GeopickerController extends ActionController {
         $data['dataElevationField'] = "data[$table][$uid][$elevationField]";
         $data['table'] = $table;
         $data['elevationUnit'] = $elevationUnit;
-	$data['apikey'] = $apikey;
+        $data['apikey'] = $apikey;
 
         $funcs = "
             window.opener.typo3form.fieldGet('data[$table][2][lat]', 'trim', '', 1, '');
@@ -67,15 +77,17 @@ class GeopickerController extends ActionController {
             window.opener.TBE_EDITOR.fieldChanged('$table', '$uid', 'lon', 'data[$table][$latField][lon]');
         ";
         $data['funcs'] = $funcs;
-        $data['extPath'] = ExtensionManagementUtility::extRelPath('geopicker');
 
-        /** @var $view \TYPO3\CMS\Fluid\View\StandaloneView */
-        $view = GeneralUtility::makeInstance('TYPO3\CMS\Fluid\View\StandaloneView');
-        $view->setTemplatePathAndFilename(ExtensionManagementUtility::extPath('geopicker') . 'Resources/Private/Standalone/GeoPickerWizard.html');
+        $template = 'EXT:geopicker/Resources/Private/Standalone/GeoPickerWizard.html';
+        $view = GeneralUtility::makeInstance(StandaloneView::class);
+        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($template));
         $view->assign('data', $data);
         $rendered = $view->render();
-        echo $rendered;
 
+        // Use HtmlResponse once we drop support for TYPO3 v7/v8
+        $response = new Response;
+        $response->getBody()->write($view->render());
+
+        return $response;
     }
-
 }
