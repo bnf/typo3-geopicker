@@ -20,32 +20,32 @@
                 startLon = null,
                 elevationEditable = true;
 
-        function checkReference() {
+        function checkReference() {<f:comment></f:comment>
 		console.log(window.opener.document.editform);
             if (window.opener && window.opener.document
                     && window.opener.document.editform
                     && window.opener.document.editform.querySelector('[data-formengine-input-name="' + DATA_LAT_FIELD + '"]')
-                    && window.opener.document.editform.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]')) {
+                    && window.opener.document.editform.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]')) {<f:comment></f:comment>
                 return true;
-            } else {
+            } else {<f:comment></f:comment>
                 alert('Missing fields configuration, check your TCA');
                 close();
             }
 	    return true;
         }
 
-        function isNumeric(n) {
+        function isNumeric(n) {<f:comment></f:comment>
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
 
-        function getCoordsFromMainForm() {
+        function getCoordsFromMainForm() {<f:comment></f:comment>
             startLat = window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LAT_FIELD + '"]').value;
             startLon = window.opener.document.querySelector('[data-formengine-input-name="' + DATA_LON_FIELD + '"]').value;
             document.getElementById("lat").value = startLat;
             document.getElementById("lon").value = startLon;
         }
 
-        function updateFields() {
+        function updateFields() {<f:comment></f:comment>
             checkReference();
             var newLat = parseFloat(document.getElementById("lat").value).toFixed(6),
                     newLon = parseFloat(document.getElementById("lon").value).toFixed(6),
@@ -62,7 +62,7 @@
             window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, LAT_FIELD, DATA_LAT_FIELD);
             window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, LON_FIELD, DATA_LON_FIELD);
 
-            if (elevationEditable && isNumeric(newElevation)) {
+            if (elevationEditable && isNumeric(newElevation)) {<f:comment></f:comment>
                 window.opener.document.getElementsByName(DATA_ELEVATION_FIELD + '_hr')[0].value = newElevation;
                 //window.opener.typo3form.fieldGet(DATA_ELEVATION_FIELD, 'trim', '', 1, '');
                 window.opener.TBE_EDITOR.fieldChanged(TABLE, UID, ELEVATION_FIELD, DATA_ELEVATION_FIELD);
@@ -83,7 +83,7 @@
     <div><b>GeoPicker</b><br/><br/></div>
     <form action="#" onsubmit="codeAddress(); return false">
         <input type="text" id="address" class="wideInput" value=""/><br/>
-        <input type="submit" value="<f:translate key='LLL:EXT:geopicker/Resources/Private/Language/locallang_db.xlf:wizard.search'/>"/>
+	<input type="submit" value="{f:translate(key: 'LLL:EXT:geopicker/Resources/Private/Language/locallang_db.xlf:wizard.search')}"/>
     </form>
 
     <b><f:translate key="LLL:EXT:geopicker/Resources/Private/Language/locallang_db.xlf:wizard.coordinates"/></b>
@@ -114,10 +114,10 @@
 
     var map, geocoder, marker, elevator, currentPoint = null;
 
-    function checkElevation() {
+    function checkElevation() {<f:comment></f:comment>
         console.log('should check elevation');
         var checkedElevation = document.getElementById('elevationCheckbox').checked;
-        if (!checkedElevation) {
+        if (!checkedElevation) {<f:comment></f:comment>
             document.getElementById('elevation').value = '';
             return;
         }
@@ -128,41 +128,41 @@
         var locations = [];
         locations.push(currentPoint);
 
-        var positionalRequest = {
+        var positionalRequest = {<f:comment></f:comment>
             'locations': locations
         };
 
-        elevator.getElevationForLocations(positionalRequest, function (results, status) {
-            if (status == google.maps.ElevationStatus.OK) {
-                if (results[0]) {
+        elevator.getElevationForLocations(positionalRequest, function (results, status) {<f:comment></f:comment>
+            if (status == google.maps.ElevationStatus.OK) {<f:comment></f:comment>
+                if (results[0]) {<f:comment></f:comment>
                     var elevation = results[0].elevation;
-                    if (ELEVATION_UNIT === 'feet') {
+                    if (ELEVATION_UNIT === 'feet') {<f:comment></f:comment>
                         elevation = elevation * 3.2808399
                     }
                     document.getElementById('elevation').value = Math.round(elevation)
-                } else {
+                } else {<f:comment></f:comment>
                     alert("No results found");
                 }
-            } else {
+            } else {<f:comment></f:comment>
                 alert("Elevation service failed due to: " + status);
             }
         });
     }
 
-    function codeAddress() {
+    function codeAddress() {<f:comment></f:comment>
         var address = document.getElementById('address').value;
-        geocoder.geocode({'address': address}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+        geocoder.geocode({'address': address}, function (results, status) {<f:comment></f:comment>
+            if (status == google.maps.GeocoderStatus.OK) {<f:comment></f:comment>
                 var location = results[0].geometry.location;
                 map.setCenter(location);
-                if (marker == null) {
-                    marker = new google.maps.Marker({
+                if (marker == null) {<f:comment></f:comment>
+                    marker = new google.maps.Marker({<f:comment></f:comment>
                         position: location,
                         map: map,
                         draggable: true,
                         title: 'Position'
                     });
-                    google.maps.event.addListener(marker, 'dragend', function (event) {
+                    google.maps.event.addListener(marker, 'dragend', function (event) {<f:comment></f:comment>
                         document.getElementById("lat").value = this.getPosition().lat();
                         document.getElementById("lon").value = this.getPosition().lng();
                     });
@@ -172,24 +172,24 @@
                 checkElevation();
                 document.getElementById("lat").value = location.lat();
                 document.getElementById("lon").value = location.lng()
-            } else {
+            } else {<f:comment></f:comment>
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     }
 
-    function initialize() {
+    function initialize() {<f:comment></f:comment>
         geocoder = new google.maps.Geocoder();
         var myLatlng = new google.maps.LatLng(startLat, startLon);
-        var mapOptions = {
+        var mapOptions = {<f:comment></f:comment>
             zoom: 12,
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.TERRAIN
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-        if (startLat && startLon) {
-            marker = new google.maps.Marker({
+        if (startLat && startLon) {<f:comment></f:comment>
+            marker = new google.maps.Marker({<f:comment></f:comment>
                 position: myLatlng,
                 map: map,
                 draggable: true,
@@ -198,7 +198,7 @@
             currentPoint = myLatlng;
         }
 
-        google.maps.event.addListener(marker, 'dragend', function (event) {
+        google.maps.event.addListener(marker, 'dragend', function (event) {<f:comment></f:comment>
             document.getElementById("lat").value = this.getPosition().lat();
             document.getElementById("lon").value = this.getPosition().lng();
             currentPoint = this.getPosition();
